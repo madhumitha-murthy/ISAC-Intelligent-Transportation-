@@ -112,13 +112,13 @@ Before SCC, static reflections from buildings dominate the Range-Doppler Map, ma
 
 | Before SCC | After SCC |
 |---|---|
-| <img src="results/monostatic_before_scc.png" width="350"/> | <img src="results/monostatic_after_scc.png" width="350"/> |
+| <img src="results/Monostatic%20Algorithm%20before.png" width="350"/> | <img src="results/Monostatic%20Algorithm%20after.png" width="350"/> |
 
 **Bistatic**
 
 | Before SCC | After SCC |
 |---|---|
-| <img src="results/bistatic_before_scc.png" width="350"/> | <img src="results/bistatic_after_scc.png" width="350"/> |
+| <img src="results/Bistatic%20algorithm%20before.png" width="350"/> | <img src="results/Bistatic%20algorithm%20after.png" width="350"/> |
 
 ---
 
@@ -126,7 +126,7 @@ Before SCC, static reflections from buildings dominate the Range-Doppler Map, ma
 
 Real-time ray-tracing snapshot of the vehicle moving through the Fusionopolis road junction, capturing multipath reflections and dynamic occlusions.
 
-<img src="results/vehicle_moving.png" width="600"/>
+<img src="results/vehicle%20moving.png" width="600"/>
 
 ---
 
@@ -146,7 +146,7 @@ Proactive beamforming using predicted DOA achieves BER performance comparable to
 
 <img src="results/pic2.jpeg" width="500"/>
 
-<img src="results/comparison.png" width="500"/>
+<img src="results/Comparison.png" width="500"/>
 
 ---
 
@@ -165,17 +165,17 @@ Proactive beamforming using predicted DOA achieves BER performance comparable to
 isac-digital-twin/
 │
 ├── README.md
-├── results/                        # All figures and visualizations
+├── results/
 │   ├── system_model.png
 │   ├── monostatic_config.png
 │   ├── bistatic_config.png
-│   ├── monostatic_before_scc.png
-│   ├── monostatic_after_scc.png
-│   ├── bistatic_before_scc.png
-│   ├── bistatic_after_scc.png
+│   ├── Monostatic Algorithm before.png
+│   ├── Monostatic Algorithm after.png
+│   ├── Bistatic algorithm before.png
+│   ├── Bistatic algorithm after.png
 │   ├── tracking.png
-│   ├── vehicle_moving.png
-│   ├── comparison.png
+│   ├── vehicle moving.png
+│   ├── Comparison.png
 │   ├── pic1.jpeg
 │   └── pic2.jpeg
 └── docs/
@@ -206,4 +206,4 @@ Conducted at **I²R, A*STAR** in collaboration with **Nanyang Technological Univ
 ## 📬 Contact
 
 **Madhumitha Murthy** · NTU Singapore
-`[madhumit007@e.ntu.sg]` · [LinkedIn]([https://www.linkedin.com/in/madhumitha-murthy-4801b7223/])
+`madhumit007@e.ntu.sg` · [LinkedIn](https://www.linkedin.com/in/madhumitha-murthy-4801b7223/)
