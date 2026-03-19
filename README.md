@@ -18,8 +18,7 @@
 
 I designed and implemented an end-to-end **digital twin** of a city intersection, where a base station simultaneously tracks moving vehicles and maintains a reliable wireless link with them — all from a single transmitted waveform.
 
-<img width="1143" height="1016" alt="system_model" src="https://github.com/user-attachments/assets/2c121c32-e619-473f-b193-0d8f693dffde" />
-
+<img src="https://github.com/user-attachments/assets/2c121c32-e619-473f-b193-0d8f693dffde" width="500"/>
 
 ---
 
@@ -101,9 +100,7 @@ I designed and implemented an end-to-end **digital twin** of a city intersection
 
 | Monostatic | Bistatic |
 |---|---|
-| <img width="882" height="555" alt="monostatic_config" src="https://github.com/user-attachments/assets/383d21a3-42f5-499e-ab6e-2aecd735fa99" />
- |<img width="506" height="319" alt="bistatic_config" src="https://github.com/user-attachments/assets/ecb5dc47-fd30-40cc-b8b8-c2d917e1ffe8" />
- |
+| <img src="https://github.com/user-attachments/assets/383d21a3-42f5-499e-ab6e-2aecd735fa99" width="350"/> | <img src="https://github.com/user-attachments/assets/ecb5dc47-fd30-40cc-b8b8-c2d917e1ffe8" width="350"/> |
 
 ---
 
@@ -115,17 +112,13 @@ Before SCC, static reflections from buildings dominate the Range-Doppler Map, ma
 
 | Before SCC | After SCC |
 |---|---|
-| <img width="482" height="558" alt="Monostatic Algorithm before" src="https://github.com/user-attachments/assets/b6de39b9-55d5-4e58-89ea-02536b8f7284" />
-|   <img width="451" height="549" alt="Monostatic Algorithm after" src="https://github.com/user-attachments/assets/b63a407c-6f61-4f67-af5c-50a16e5a1ec3" />
-  |
+| <img src="https://github.com/user-attachments/assets/b6de39b9-55d5-4e58-89ea-02536b8f7284" width="350"/> | <img src="https://github.com/user-attachments/assets/b63a407c-6f61-4f67-af5c-50a16e5a1ec3" width="350"/> |
 
 **Bistatic**
 
 | Before SCC | After SCC |
 |---|---|
-| <img width="440" height="470" alt="Bistatic algorithm before" src="https://github.com/user-attachments/assets/71b1f2f1-0180-4f25-a91e-ebcc1b24f673" />
-  | <img width="440" height="470" alt="Bistatic algorithm after" src="https://github.com/user-attachments/assets/44459f6d-46bb-4016-8f3e-fdca8bdbed45" />
-  |
+| <img src="https://github.com/user-attachments/assets/71b1f2f1-0180-4f25-a91e-ebcc1b24f673" width="350"/> | <img src="https://github.com/user-attachments/assets/44459f6d-46bb-4016-8f3e-fdca8bdbed45" width="350"/> |
 
 ---
 
@@ -133,30 +126,27 @@ Before SCC, static reflections from buildings dominate the Range-Doppler Map, ma
 
 Real-time ray-tracing snapshot of the vehicle moving through the Fusionopolis road junction, capturing multipath reflections and dynamic occlusions.
 
-
-<img width="917" height="343" alt="vehicle moving" src="https://github.com/user-attachments/assets/9b7f20df-d070-477d-9bca-92cbcbff1f7c" />
+<img src="https://github.com/user-attachments/assets/9b7f20df-d070-477d-9bca-92cbcbff1f7c" width="600"/>
 
 ---
 
 ### Vehicle Trajectory Prediction
 
-The prediction algorithm closely tracks actual vehicle positions at both short and long update intervals.<img width="989" height="481" alt="tracking" src="https://github.com/user-attachments/assets/b6e04f11-a5d7-42bc-8e2a-a47b108ed03d" />
+The prediction algorithm closely tracks actual vehicle positions at both short and long update intervals.
 
-
-<img src="results/tracking.png" width="600"/>
+<img src="https://github.com/user-attachments/assets/b6e04f11-a5d7-42bc-8e2a-a47b108ed03d" width="600"/>
 
 ---
 
 ### Sensing-Aided Beamforming
 
-![pic1](https://github.com/user-attachments/assets/8c53b564-1d53-4132-9186-65ce20cafd70)
-
+<img src="https://github.com/user-attachments/assets/8c53b564-1d53-4132-9186-65ce20cafd70" width="600"/>
 
 Proactive beamforming using predicted DOA achieves BER performance comparable to perfect true-DOA beamforming, with significantly lower computational cost.
 
-![pic2](https://github.com/user-attachments/assets/7484cf28-8d6c-493b-a934-9151ff6f4ae9)
+<img src="https://github.com/user-attachments/assets/7484cf28-8d6c-493b-a934-9151ff6f4ae9" width="500"/>
 
-<img width="1319" height="494" alt="Comparison" src="https://github.com/user-attachments/assets/4c3b23ee-ebbf-4540-b659-0338e5583aaf" />
+<img src="https://github.com/user-attachments/assets/4c3b23ee-ebbf-4540-b659-0338e5583aaf" width="600"/>
 
 ---
 
@@ -166,32 +156,6 @@ Proactive beamforming using predicted DOA achieves BER performance comparable to
 - Doppler geometry matters — measurements near 90° line-of-sight angle are discarded to avoid velocity ambiguity, a subtle but critical design decision
 - Prediction intervals up to 2 seconds still yield accurate beam alignment, promising for real-world deployment where feedback latency is unavoidable
 - Bistatic configurations introduce additional geometric complexity but remain manageable with the proposed framework
-
----
-
-## 📂 Repository Structure
-
-```
-isac-digital-twin/
-│
-├── README.md
-├── results/
-│   ├── system_model.png
-│   ├── monostatic_config.png
-│   ├── bistatic_config.png
-│   ├── Monostatic Algorithm before.png
-│   ├── Monostatic Algorithm after.png
-│   ├── Bistatic algorithm before.png
-│   ├── Bistatic algorithm after.png
-│   ├── tracking.png
-│   ├── vehicle moving.png
-│   ├── Comparison.png
-│   ├── pic1.jpeg
-│   └── pic2.jpeg
-└── docs/
-    └── publications/
-        └── paper_info.md
-```
 
 ---
 
