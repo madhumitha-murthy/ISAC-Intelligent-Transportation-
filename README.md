@@ -18,7 +18,8 @@
 
 I designed and implemented an end-to-end **digital twin** of a city intersection, where a base station simultaneously tracks moving vehicles and maintains a reliable wireless link with them — all from a single transmitted waveform.
 
-<img src="results/system_model.png" width="400"/>
+<img width="1143" height="1016" alt="system_model" src="https://github.com/user-attachments/assets/2c121c32-e619-473f-b193-0d8f693dffde" />
+
 
 ---
 
