@@ -163,10 +163,10 @@ Proactive beamforming using predicted DOA achieves BER performance comparable to
 
 - *ISAC for Intelligent Transportation: Ray-Tracing, Clutter Cancellation, and Sensing-Aided Beamforming*
   Madhumitha Murthy, Hao Lin, Xiaojuan Zhang, Yonghong Zeng, Zhiping Lin, Francois Chin, Sumei Sun
-  NTU & I²R A*STAR · **IEEE 2025 *(accepted, forthcoming)***
-
-- *Kalman Filtering-based Target Tracking for Multistatic Sensing in ISAC Systems*
-  **IEEE ISCAS 2025 *(accepted, forthcoming)***
+  **IEEE International Symposium on Circuits and Systems (ISCAS) *(accepted, forthcoming)***
+ 
+- *Integrated Communication and Sensing: Algorithms & 3D Simulation Insights*
+  **npj Wireless Technology *(accepted, forthcoming)***
 
 ---
 
