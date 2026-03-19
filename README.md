@@ -18,6 +18,8 @@
 
 I designed and implemented an end-to-end **digital twin** of a city intersection, where a base station simultaneously tracks moving vehicles and maintains a reliable wireless link with them — all from a single transmitted waveform.
 
+<img src="results/system_model.png" width="400"/>
+
 ---
 
 ## 🎯 The Problem I Solved
@@ -94,24 +96,57 @@ I designed and implemented an end-to-end **digital twin** of a city intersection
 
 ## 📊 Results
 
+### Deployment Configurations
+
+| Monostatic | Bistatic |
+|---|---|
+| <img src="results/monostatic_config.png" width="350"/> | <img src="results/bistatic_config.png" width="350"/> |
+
+---
+
 ### Static Clutter Cancellation
+
 Before SCC, static reflections from buildings dominate the Range-Doppler Map, masking vehicles entirely. After SCC, moving vehicles are clearly distinguishable with distinct Doppler signatures.
 
-> 📷 *[Insert RDM before/after SCC — monostatic & bistatic]*
+**Monostatic**
+
+| Before SCC | After SCC |
+|---|---|
+| <img src="results/monostatic_before_scc.png" width="350"/> | <img src="results/monostatic_after_scc.png" width="350"/> |
+
+**Bistatic**
+
+| Before SCC | After SCC |
+|---|---|
+| <img src="results/bistatic_before_scc.png" width="350"/> | <img src="results/bistatic_after_scc.png" width="350"/> |
+
+---
+
+### Urban Ray-Tracing Simulation
+
+Real-time ray-tracing snapshot of the vehicle moving through the Fusionopolis road junction, capturing multipath reflections and dynamic occlusions.
+
+<img src="results/vehicle_moving.png" width="600"/>
 
 ---
 
 ### Vehicle Trajectory Prediction
-The prediction algorithm closely tracks actual vehicle positions at both short (0.333s) and long (2s) update intervals, demonstrating robustness across different prediction horizons.
 
-> 📷 *[Insert tracking snapshot — timestep 1 & timestep 6]*
+The prediction algorithm closely tracks actual vehicle positions at both short and long update intervals.
+
+<img src="results/tracking.png" width="600"/>
 
 ---
 
-### Sensing-Aided Beamforming BER Performance
+### Sensing-Aided Beamforming
+
+<img src="results/pic1.jpeg" width="600"/>
+
 Proactive beamforming using predicted DOA achieves BER performance comparable to perfect true-DOA beamforming, with significantly lower computational cost.
 
-> 📷 *[Insert BER vs SNR curve]*
+<img src="results/pic2.jpeg" width="500"/>
+
+<img src="results/comparison.png" width="500"/>
 
 ---
 
@@ -119,7 +154,7 @@ Proactive beamforming using predicted DOA achieves BER performance comparable to
 
 - Clutter cancellation is essential at mmWave — without it, static infrastructure completely masks targets in dense urban environments
 - Doppler geometry matters — measurements near 90° line-of-sight angle are discarded to avoid velocity ambiguity, a subtle but critical design decision
-- Prediction intervals up to 2 seconds still yield accurate beam alignment, which is promising for real-world deployment where feedback latency is unavoidable
+- Prediction intervals up to 2 seconds still yield accurate beam alignment, promising for real-world deployment where feedback latency is unavoidable
 - Bistatic configurations introduce additional geometric complexity but remain manageable with the proposed framework
 
 ---
@@ -130,17 +165,20 @@ Proactive beamforming using predicted DOA achieves BER performance comparable to
 isac-digital-twin/
 │
 ├── README.md
-├── configs/
-│   ├── monostatic.yaml
-│   ├── bistatic.yaml
-│   └── ofdm_params.yaml
-├── results/
-│   ├── rdm_plots/
-│   ├── tracking_snapshots/
-│   └── ber_curves/
+├── results/                        # All figures and visualizations
+│   ├── system_model.png
+│   ├── monostatic_config.png
+│   ├── bistatic_config.png
+│   ├── monostatic_before_scc.png
+│   ├── monostatic_after_scc.png
+│   ├── bistatic_before_scc.png
+│   ├── bistatic_after_scc.png
+│   ├── tracking.png
+│   ├── vehicle_moving.png
+│   ├── comparison.png
+│   ├── pic1.jpeg
+│   └── pic2.jpeg
 └── docs/
-    ├── system_model.md
-    ├── simulation_setup.md
     └── publications/
         └── paper_info.md
 ```
@@ -168,4 +206,4 @@ Conducted at **I²R, A*STAR** in collaboration with **Nanyang Technological Univ
 ## 📬 Contact
 
 **Madhumitha Murthy** · NTU Singapore
-`[your email]` · [LinkedIn]([your LinkedIn URL])
+`[madhumit007@e.ntu.sg]` · [LinkedIn]([https://www.linkedin.com/in/madhumitha-murthy-4801b7223/])
