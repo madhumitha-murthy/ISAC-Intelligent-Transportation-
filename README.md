@@ -1,47 +1,126 @@
 # 🛰️ ISAC Digital Twin Framework for Intelligent Transportation Systems
 
-> **Research Attachment** — Institute for Infocomm Research (I²R), A*STAR · Oct 2024 – Dec 2025
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)
+![NVIDIA Sionna](https://img.shields.io/badge/NVIDIA-Sionna-76B900?style=flat&logo=nvidia&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Research%20Complete-brightgreen?style=flat)
+![Institution](https://img.shields.io/badge/A*STAR-I²R-red?style=flat)
+![NTU](https://img.shields.io/badge/NTU-Singapore-003D7C?style=flat)
 
-A high-fidelity simulation and algorithmic framework for **Integrated Sensing and Communications (ISAC)** in intelligent transportation systems (ITS), built on top of NVIDIA Sionna ray tracing. This repository documents the architecture, methodology, and results — code is proprietary and not included.
+**Research Attachment** — Institute for Infocomm Research (I²R), A*STAR · Oct 2024 – Dec 2025
 
----
-
-## 📌 Overview
-
-This project develops an end-to-end **digital twin simulation pipeline** for 5G/6G-enabled vehicle sensing and communication. The framework combines physically accurate 3D urban environments with advanced signal processing algorithms to evaluate and prototype ISAC systems at scale.
-
-Key contributions:
-- 3D urban digital twin environment built with **Blender** + **OpenStreetMap** (Fusionopolis, Singapore)
-- **NVIDIA Sionna** ray-tracing engine for realistic wireless channel simulation
-- **OFDM radar** processing with **Static Clutter Cancellation (SCC)** for vehicle detection
-- **Doppler-based trajectory prediction** for proactive sensing-aided beamforming
-- Scalable Python pipelines for multi-scenario dataset generation and evaluation
+> ⚠️ Source code is proprietary to I²R, A*STAR and is not included in this repository. This repo documents the research scope, methodology, and results.
 
 ---
 
-## 🏗️ System Architecture
+## 🧭 What This Project Is About
+
+6G networks need to do two things at once — **communicate data** and **sense the environment** — using the same radio signal. This project builds a complete simulation framework to test exactly that, applied to real urban traffic in Singapore.
+
+I designed and implemented an end-to-end **digital twin** of a city intersection, where a base station simultaneously tracks moving vehicles and maintains a reliable wireless link with them — all from a single transmitted waveform.
+
+---
+
+## 🎯 The Problem I Solved
+
+| Challenge | Approach |
+|---|---|
+| Static buildings and infrastructure drown out moving vehicle signals in radar | Designed a **Static Clutter Cancellation (SCC)** algorithm to suppress static reflections and isolate moving targets |
+| High-speed vehicles move faster than beamforming can react | Built a **Doppler-based trajectory prediction** algorithm to forecast vehicle position and steer the beam *before* the vehicle moves |
+| No realistic testbed existed for joint sensing + communication at 59 GHz | Constructed a **3D digital twin** of Fusionopolis, Singapore using Blender + OpenStreetMap + NVIDIA Sionna ray tracing |
+
+---
+
+## 🏗️ System Overview
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    Digital Twin Environment                  │
-│   Blender 3D Model + OpenStreetMap + Sionna Ray Tracing     │
-└────────────────────────┬────────────────────────────────────┘
-                         │
-          ┌──────────────▼──────────────┐
-          │      OFDM Signal Processing  │
-          │   Static Clutter Cancellation│
-          └──────────────┬──────────────┘
-                         │
-          ┌──────────────▼──────────────┐
-          │   Trajectory Prediction      │
-          │   (Doppler + Motion Model)   │
-          └──────────────┬──────────────┘
-                         │
-          ┌──────────────▼──────────────┐
-          │   Sensing-Aided Beamforming  │
-          │   (Proactive DOA Alignment)  │
-          └─────────────────────────────┘
+┌──────────────────────────────────────────────┐
+│            Digital Twin Environment           │
+│  Blender 3D Model · OpenStreetMap · Sionna RT │
+└───────────────────┬──────────────────────────┘
+                    │  Realistic multipath, Doppler,
+                    │  occlusions, dynamic scatterers
+                    ▼
+┌──────────────────────────────────────────────┐
+│         OFDM Radar Signal Processing          │
+│   Channel estimation → Static Clutter        │
+│   Cancellation → Range-Doppler Map (RDM)     │
+└───────────────────┬──────────────────────────┘
+                    │  Delay (range) + Doppler (velocity)
+                    ▼
+┌──────────────────────────────────────────────┐
+│         Trajectory Prediction Algorithm       │
+│   Past positions + Doppler → heading + speed  │
+│   → predicted next position p̂(k+1)           │
+└───────────────────┬──────────────────────────┘
+                    │  Predicted azimuth / elevation
+                    ▼
+┌──────────────────────────────────────────────┐
+│         Sensing-Aided Beamforming             │
+│   Steering vector → proactive beam alignment  │
+│   → reduced misalignment, improved BER        │
+└──────────────────────────────────────────────┘
 ```
+
+---
+
+## ⚙️ Technical Stack
+
+| Layer | Tools & Technologies |
+|---|---|
+| 3D Scene Construction | Blender, OpenStreetMap, Mitsuba Renderer |
+| Wireless Channel Simulation | NVIDIA Sionna Ray Tracing (59 GHz mmWave) |
+| Signal Processing | OFDM Radar, 2D FFT, Static Clutter Cancellation |
+| Tracking & Prediction | Doppler-based motion model, Kalman Filter |
+| Beamforming | Steering vector construction, DOA estimation |
+| Scripting & Pipelines | Python |
+
+---
+
+## 📡 Simulation Parameters
+
+| Parameter | Value |
+|---|---|
+| Carrier Frequency | 59 GHz |
+| Bandwidth | 100 MHz |
+| OFDM Symbols (M) | 140 |
+| Subcarriers (N) | 4096 |
+| Subcarrier Spacing | 30 kHz |
+| Modulation | QPSK |
+| Antennas (Tx / Rx) | 2 / 2 |
+| Urban Scene | Fusionopolis, Singapore |
+| Configurations | Monostatic & Bistatic |
+
+---
+
+## 📊 Results
+
+### Static Clutter Cancellation
+Before SCC, static reflections from buildings dominate the Range-Doppler Map, masking vehicles entirely. After SCC, moving vehicles are clearly distinguishable with distinct Doppler signatures.
+
+> 📷 *[Insert RDM before/after SCC — monostatic & bistatic]*
+
+---
+
+### Vehicle Trajectory Prediction
+The prediction algorithm closely tracks actual vehicle positions at both short (0.333s) and long (2s) update intervals, demonstrating robustness across different prediction horizons.
+
+> 📷 *[Insert tracking snapshot — timestep 1 & timestep 6]*
+
+---
+
+### Sensing-Aided Beamforming BER Performance
+Proactive beamforming using predicted DOA achieves BER performance comparable to perfect true-DOA beamforming, with significantly lower computational cost.
+
+> 📷 *[Insert BER vs SNR curve]*
+
+---
+
+## 💡 Key Takeaways
+
+- Clutter cancellation is essential at mmWave — without it, static infrastructure completely masks targets in dense urban environments
+- Doppler geometry matters — measurements near 90° line-of-sight angle are discarded to avoid velocity ambiguity, a subtle but critical design decision
+- Prediction intervals up to 2 seconds still yield accurate beam alignment, which is promising for real-world deployment where feedback latency is unavoidable
+- Bistatic configurations introduce additional geometric complexity but remain manageable with the proposed framework
 
 ---
 
@@ -51,129 +130,42 @@ Key contributions:
 isac-digital-twin/
 │
 ├── README.md
-│
-├── environment/                    # Digital twin scene setup
-│   ├── blender/                    #   3D urban model assets & scene files
-│   ├── openstreetmap/              #   OSM map data & building geometry imports
-│   └── sionna_config/              #   Ray-tracing scene config & material params
-│
-├── channel_simulation/             # Wireless channel modeling
-│   ├── ray_tracing/                #   Sionna RT simulation scripts
-│   ├── channel_estimation/         #   H(k,m) estimation pipeline
-│   └── dataset_generation/         #   Multi-scenario batch generation pipeline
-│
-├── sensing/                        # Radar sensing algorithms
-│   ├── ofdm_radar/                 #   OFDM radar processing pipeline
-│   ├── clutter_cancellation/       #   Static Clutter Cancellation (SCC) algorithm
-│   └── range_doppler/              #   Range-Doppler map generation & visualization
-│
-├── tracking/                       # Vehicle tracking & prediction
-│   ├── trajectory_prediction/      #   Doppler-based position prediction algorithm
-│   ├── kalman_filter/              #   Kalman filter for multi-target tracking
-│   └── evaluation/                 #   Prediction accuracy metrics & plots
-│
-├── beamforming/                    # Communication & beamforming
-│   ├── sensing_aided/              #   Sensing-aided beamforming (predicted DOA)
-│   ├── baselines/                  #   True DOA & estimation-based benchmarks
-│   └── ber_analysis/               #   BER vs SNR evaluation scripts
-│
-├── configs/                        # Experiment configuration files
-│   ├── monostatic.yaml             #   Monostatic ISAC config
-│   ├── bistatic.yaml               #   Bistatic ISAC config
-│   └── ofdm_params.yaml            #   OFDM radar parameter definitions
-│
-├── results/                        # Outputs and visualizations
-│   ├── rdm_plots/                  #   Range-Doppler maps (before/after SCC)
-│   ├── tracking_snapshots/         #   Vehicle tracking at multiple timesteps
-│   └── ber_curves/                 #   BER performance comparison plots
-│
-├── docs/                           # Documentation & references
-│   ├── system_model.md             #   Signal model and algorithm derivations
-│   ├── simulation_setup.md         #   Step-by-step environment setup guide
-│   └── publications/               #   Related IEEE/Nature paper references
-│
-└── requirements.txt                # Python dependencies
+├── configs/
+│   ├── monostatic.yaml
+│   ├── bistatic.yaml
+│   └── ofdm_params.yaml
+├── results/
+│   ├── rdm_plots/
+│   ├── tracking_snapshots/
+│   └── ber_curves/
+└── docs/
+    ├── system_model.md
+    ├── simulation_setup.md
+    └── publications/
+        └── paper_info.md
 ```
-
----
-
-## ⚙️ Simulation Parameters
-
-| Parameter                   | Value                    |
-|-----------------------------|--------------------------|
-| Number of OFDM Symbols (M)  | 140                      |
-| Number of Subcarriers (N)   | 4096                     |
-| Subcarrier Spacing          | 30 kHz                   |
-| Carrier Frequency           | 59 GHz                   |
-| Bandwidth                   | 100 MHz                  |
-| Modulation Scheme           | QPSK                     |
-| Transmit / Receive Antennas | 2 / 2                    |
-| Ray-Tracing Engine          | NVIDIA Sionna            |
-| Urban Scene                 | Fusionopolis, Singapore  |
-
----
-
-## 🧠 Algorithms
-
-### 1. OFDM Radar with Static Clutter Cancellation (SCC)
-Targets are detected in the frequency-domain channel estimate `H(k,m)`. Static reflections are averaged across OFDM symbols and subtracted, leaving only moving targets. A 2D FFT then produces the Range-Doppler Map (RDM), from which delay (range) and Doppler (velocity) are extracted.
-
-### 2. Sensing-Based Trajectory Prediction
-Using past position estimates and Doppler measurements, the algorithm computes vehicle heading and resolves the radial velocity component to estimate true speed. The next position is predicted as:
-
-```
-p̂(k+1) = p̂(k) + v̂(k) · d̂(k) · Δt
-```
-
-Doppler measurements with a near-90° line-of-sight angle are discarded to avoid geometric ambiguity.
-
-### 3. Sensing-Aided Beamforming
-Predicted future positions are converted to azimuth/elevation angles, which are used to construct steering vectors and update beamforming weights **proactively** — before the vehicle moves — reducing misalignment in high-mobility scenarios.
-
----
-
-## 📊 Key Results
-
-- **SCC** effectively suppresses static clutter in both monostatic and bistatic configurations, making moving vehicles clearly distinguishable in RDMs.
-- **Trajectory prediction** closely tracks actual vehicle positions across prediction intervals (0.333s to 2s update rates).
-- **Sensing-aided beamforming** achieves BER performance comparable to true DOA-based beamforming, with significantly lower computational overhead.
-
----
-
-## 🗺️ Deployment Scenarios
-
-| Configuration  | Description                                              |
-|----------------|----------------------------------------------------------|
-| **Monostatic** | Transmitter and receiver co-located at the base station  |
-| **Bistatic**   | Transmitter and receiver spatially separated             |
-
-Both configurations are evaluated in the Fusionopolis urban ITS scenario with realistic multipath, dynamic occlusions, and Doppler effects.
 
 ---
 
 ## 📄 Publications
 
-This work contributed to the following publications:
+- *ISAC for Intelligent Transportation: Ray-Tracing, Clutter Cancellation, and Sensing-Aided Beamforming*
+  Madhumitha Murthy, Hao Lin, Xiaojuan Zhang, Yonghong Zeng, Zhiping Lin, Francois Chin, Sumei Sun
+  NTU & I²R A*STAR · **IEEE 2025 *(accepted, forthcoming)***
 
-- **IEEE Conference Paper** — *ISAC for Intelligent Transportation: Ray-Tracing, Clutter Cancellation, and Sensing-Aided Beamforming*, Madhumitha Murthy et al., NTU & I²R A*STAR, 2025.
-- Related work: *Kalman Filtering-based Target Tracking for Multistatic Sensing in ISAC Systems*, IEEE ISCAS 2025.
+- *Kalman Filtering-based Target Tracking for Multistatic Sensing in ISAC Systems*
+  **IEEE ISCAS 2025 *(accepted, forthcoming)***
 
 ---
 
 ## 🙏 Acknowledgements
 
-This research is supported by the **National Research Foundation, Singapore** and the **Infocomm Media Development Authority** under its Future Communications Research & Development Programme.
-
-Conducted at the **Institute for Infocomm Research (I²R), A*STAR**, in collaboration with the School of Electrical and Electronic Engineering, **Nanyang Technological University (NTU)**.
+Supported by the **National Research Foundation, Singapore** and **IMDA** under the Future Communications R&D Programme.
+Conducted at **I²R, A*STAR** in collaboration with **Nanyang Technological University (NTU)**.
 
 ---
 
 ## 📬 Contact
 
-**Madhumitha Murthy**
-School of Electrical and Electronic Engineering, NTU Singapore
-
-
----
-
-> ⚠️ **Note:** Source code is proprietary and not included in this repository. This repo serves as public documentation of the research methodology, system design, and results.
+**Madhumitha Murthy** · NTU Singapore
+`[your email]` · [LinkedIn]([your LinkedIn URL])
