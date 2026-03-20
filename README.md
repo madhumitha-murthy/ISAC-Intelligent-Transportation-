@@ -1,4 +1,4 @@
-# 🛰️ ISAC Digital Twin Framework for Intelligent Transportation Systems
+# ISAC Digital Twin Framework for Intelligent Transportation Systems
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)
 ![NVIDIA Sionna](https://img.shields.io/badge/NVIDIA-Sionna-76B900?style=flat&logo=nvidia&logoColor=white)
@@ -8,31 +8,41 @@
 
 **Research Attachment** — Institute for Infocomm Research (I²R), A*STAR · Oct 2024 – Dec 2025
 
-> ⚠️ Source code is proprietary to I²R, A*STAR and is not included in this repository. This repo documents the research scope, methodology, and results.
+> **Note:** Source code is proprietary to I²R, A*STAR and is not included in this repository. This repo documents the research scope, methodology, and results.
 
 ---
 
-## 🧭 What This Project Is About
+## Overview
 
-6G networks need to do two things at once — **communicate data** and **sense the environment** — using the same radio signal. This project builds a complete simulation framework to test exactly that, applied to real urban traffic in Singapore.
+End-to-end simulation framework for **Integrated Sensing and Communication (ISAC)** in 6G networks, applied to real-world urban vehicle tracking in Singapore. Built a physics-accurate 3D digital twin of a city intersection, where a single 59 GHz mmWave waveform simultaneously tracks moving vehicles and maintains a reliable wireless link — the core challenge in next-generation vehicular networks.
 
-I designed and implemented an end-to-end **digital twin** of a city intersection, where a base station simultaneously tracks moving vehicles and maintains a reliable wireless link with them — all from a single transmitted waveform.
-
-<img src="results/system_model.png" width="400"/>
+<img src="results/system_model.png" width="420"/>
 
 ---
 
-## 🎯 The Problem I Solved
+## Publications
 
-| Challenge | Approach |
-|---|---|
-| Static buildings and infrastructure drown out moving vehicle signals in radar | Designed a **Static Clutter Cancellation (SCC)** algorithm to suppress static reflections and isolate moving targets |
-| High-speed vehicles move faster than beamforming can react | Built a **Doppler-based trajectory prediction** algorithm to forecast vehicle position and steer the beam *before* the vehicle moves |
-| No realistic testbed existed for joint sensing + communication at 59 GHz | Constructed a **3D digital twin** of Fusionopolis, Singapore using Blender + OpenStreetMap + NVIDIA Sionna ray tracing |
+- **ISAC for Intelligent Transportation: Ray-Tracing, Clutter Cancellation, and Sensing-Aided Beamforming**
+  Madhumitha Murthy, Hao Lin, Xiaojuan Zhang, Yonghong Zeng, Zhiping Lin, Francois Chin, Sumei Sun
+  *IEEE International Symposium on Circuits and Systems (ISCAS)* — **accepted, forthcoming**
+
+- **Integrated Communication and Sensing: Algorithms & 3D Simulation Insights**
+  *npj Wireless Technology* — **accepted, forthcoming**
 
 ---
 
-## 🏗️ System Overview
+## Key Contributions
+
+| # | Contribution | Impact |
+|---|---|---|
+| 1 | **Static Clutter Cancellation (SCC) algorithm** | Suppresses building reflections at mmWave, isolating moving vehicles in dense urban environments where naive radar processing fails entirely |
+| 2 | **Doppler-based trajectory prediction** | Forecasts vehicle position from past Doppler measurements, enabling proactive beam steering before the vehicle moves |
+| 3 | **3D urban digital twin** (Fusionopolis, Singapore) | Physics-accurate testbed built from OpenStreetMap + Blender + NVIDIA Sionna ray tracing at 59 GHz — fills the gap left by the absence of real-world ISAC testbeds |
+| 4 | **Sensing-aided beamforming** | Achieves BER performance comparable to perfect-DOA beamforming with lower computational cost, using predicted rather than measured beam direction |
+
+---
+
+## System Architecture
 
 ```
 ┌──────────────────────────────────────────────┐
@@ -65,20 +75,22 @@ I designed and implemented an end-to-end **digital twin** of a city intersection
 
 ---
 
-## ⚙️ Technical Stack
+## Technical Stack
 
-| Layer | Tools & Technologies |
+| Domain | Tools & Technologies |
 |---|---|
 | 3D Scene Construction | Blender, OpenStreetMap, Mitsuba Renderer |
 | Wireless Channel Simulation | NVIDIA Sionna Ray Tracing (59 GHz mmWave) |
 | Signal Processing | OFDM Radar, 2D FFT, Static Clutter Cancellation |
 | Tracking & Prediction | Doppler-based motion model, Kalman Filter |
 | Beamforming | Steering vector construction, DOA estimation |
-| Scripting & Pipelines | Python |
+| Implementation | Python |
+
+**Skills demonstrated:** wireless communications · radar signal processing · 3D simulation · algorithm design · scientific computing · technical writing
 
 ---
 
-## 📡 Simulation Parameters
+## Simulation Parameters
 
 | Parameter | Value |
 |---|---|
@@ -94,7 +106,7 @@ I designed and implemented an end-to-end **digital twin** of a city intersection
 
 ---
 
-## 📊 Results
+## Results
 
 ### Deployment Configurations
 
@@ -106,7 +118,7 @@ I designed and implemented an end-to-end **digital twin** of a city intersection
 
 ### Static Clutter Cancellation
 
-Before SCC, static reflections from buildings dominate the Range-Doppler Map, masking vehicles entirely. After SCC, moving vehicles are clearly distinguishable with distinct Doppler signatures.
+Before SCC, static reflections from buildings dominate the Range-Doppler Map, completely masking vehicle signatures. After SCC, moving vehicles are clearly distinguishable by their distinct Doppler shift.
 
 **Monostatic**
 
@@ -124,7 +136,7 @@ Before SCC, static reflections from buildings dominate the Range-Doppler Map, ma
 
 ### Urban Ray-Tracing Simulation
 
-Real-time ray-tracing snapshot of the vehicle moving through the Fusionopolis road junction, capturing multipath reflections and dynamic occlusions.
+Real-time ray-tracing of a vehicle traversing the Fusionopolis road junction, capturing multipath reflections and dynamic occlusions at 59 GHz.
 
 <img src="results/vehicle%20moving.png" width="600"/>
 
@@ -132,7 +144,7 @@ Real-time ray-tracing snapshot of the vehicle moving through the Fusionopolis ro
 
 ### Vehicle Trajectory Prediction
 
-The prediction algorithm closely tracks actual vehicle positions at both short and long update intervals.
+The prediction algorithm closely tracks ground-truth vehicle positions across both short and extended update intervals, demonstrating robustness to prediction horizon.
 
 <img src="results/tracking.png" width="600"/>
 
@@ -142,7 +154,7 @@ The prediction algorithm closely tracks actual vehicle positions at both short a
 
 <img src="results/pic1.jpeg" width="600"/>
 
-Proactive beamforming using predicted DOA achieves BER performance comparable to perfect true-DOA beamforming, with significantly lower computational cost.
+Proactive beamforming using predicted DOA achieves BER performance on par with ideal true-DOA beamforming, at significantly lower computational overhead. Prediction horizons up to 2 seconds still yield accurate beam alignment — a critical property for real-world deployment where feedback latency is unavoidable.
 
 <img src="results/pic2.jpeg" width="500"/>
 
@@ -150,60 +162,45 @@ Proactive beamforming using predicted DOA achieves BER performance comparable to
 
 ---
 
-## 💡 Key Takeaways
+## Design Insights
 
-- Clutter cancellation is essential at mmWave — without it, static infrastructure completely masks targets in dense urban environments
-- Doppler geometry matters — measurements near 90° line-of-sight angle are discarded to avoid velocity ambiguity, a subtle but critical design decision
-- Prediction intervals up to 2 seconds still yield accurate beam alignment, promising for real-world deployment where feedback latency is unavoidable
-- Bistatic configurations introduce additional geometric complexity but remain manageable with the proposed framework
+- **Clutter cancellation is essential at mmWave:** without SCC, static urban infrastructure completely masks vehicle targets in dense environments.
+- **Doppler geometry is a first-class concern:** measurements near the 90° line-of-sight angle are excluded to avoid velocity ambiguity — a subtle but load-bearing design decision.
+- **Long prediction horizons remain viable:** accuracy holds out to ~2 seconds, making the approach realistic for systems with non-trivial feedback latency.
+- **Bistatic remains tractable:** added geometric complexity is manageable within the proposed framework, extending applicability beyond co-located deployments.
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 
 ```
 isac-digital-twin/
 │
 ├── README.md
-├── results/
-│   ├── system_model.png
-│   ├── monostatic_config.png
-│   ├── bistatic_config.png
-│   ├── Monostatic Algorithm before.png
-│   ├── Monostatic Algorithm after.png
-│   ├── Bistatic algorithm before.png
-│   ├── Bistatic algorithm after.png
-│   ├── tracking.png
-│   ├── vehicle moving.png
-│   ├── Comparison.png
-│   ├── pic1.jpeg
-│   └── pic2.jpeg
-└── docs/
-    └── publications/
-        └── paper_info.md
+└── results/
+    ├── system_model.png
+    ├── monostatic_config.png
+    ├── bistatic_config.png
+    ├── Monostatic Algorithm before.png
+    ├── Monostatic Algorithm after.png
+    ├── Bistatic algorithm before.png
+    ├── Bistatic algorithm after.png
+    ├── tracking.png
+    ├── vehicle moving.png
+    ├── Comparison.png
+    ├── pic1.jpeg
+    └── pic2.jpeg
 ```
 
 ---
 
-## 📄 Publications
+## Acknowledgements
 
-- *ISAC for Intelligent Transportation: Ray-Tracing, Clutter Cancellation, and Sensing-Aided Beamforming*
-  Madhumitha Murthy, Hao Lin, Xiaojuan Zhang, Yonghong Zeng, Zhiping Lin, Francois Chin, Sumei Sun
-  NTU & I²R A*STAR · **IEEE 2025 *(accepted, forthcoming)***
-
-- *Kalman Filtering-based Target Tracking for Multistatic Sensing in ISAC Systems*
-  **IEEE ISCAS 2025 *(accepted, forthcoming)***
+Supported by the **National Research Foundation, Singapore** and **IMDA** under the Future Communications R&D Programme. Conducted at **I²R, A*STAR** in collaboration with **Nanyang Technological University (NTU)**.
 
 ---
 
-## 🙏 Acknowledgements
-
-Supported by the **National Research Foundation, Singapore** and **IMDA** under the Future Communications R&D Programme.
-Conducted at **I²R, A*STAR** in collaboration with **Nanyang Technological University (NTU)**.
-
----
-
-## 📬 Contact
+## Contact
 
 **Madhumitha Murthy** · NTU Singapore
 `madhumit007@e.ntu.sg` · [LinkedIn](https://www.linkedin.com/in/madhumitha-murthy-4801b7223/)
