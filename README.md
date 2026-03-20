@@ -16,7 +16,7 @@
 
 End-to-end simulation framework for **Integrated Sensing and Communication (ISAC)** in 6G networks, applied to real-world urban vehicle tracking in Singapore. Built a physics-accurate 3D digital twin of a city intersection, where a single 59 GHz mmWave waveform simultaneously tracks moving vehicles and maintains a reliable wireless link — the core challenge in next-generation vehicular networks.
 
-<img src="results/system_model.png" width="420"/>
+<img src="https://github.com/user-attachments/assets/2c121c32-e619-473f-b193-0d8f693dffde" width="500"/>
 
 ---
 
@@ -112,7 +112,7 @@ End-to-end simulation framework for **Integrated Sensing and Communication (ISAC
 
 | Monostatic | Bistatic |
 |---|---|
-| <img src="results/monostatic_config.png" width="350"/> | <img src="results/bistatic_config.png" width="350"/> |
+| <img src="https://github.com/user-attachments/assets/383d21a3-42f5-499e-ab6e-2aecd735fa99" width="350"/> | <img src="https://github.com/user-attachments/assets/ecb5dc47-fd30-40cc-b8b8-c2d917e1ffe8" width="350"/> |
 
 ---
 
@@ -124,13 +124,13 @@ Before SCC, static reflections from buildings dominate the Range-Doppler Map, co
 
 | Before SCC | After SCC |
 |---|---|
-| <img src="results/Monostatic%20Algorithm%20before.png" width="350"/> | <img src="results/Monostatic%20Algorithm%20after.png" width="350"/> |
+| <img src="https://github.com/user-attachments/assets/b6de39b9-55d5-4e58-89ea-02536b8f7284" width="350"/> | <img src="https://github.com/user-attachments/assets/b63a407c-6f61-4f67-af5c-50a16e5a1ec3" width="350"/> |
 
 **Bistatic**
 
 | Before SCC | After SCC |
 |---|---|
-| <img src="results/Bistatic%20algorithm%20before.png" width="350"/> | <img src="results/Bistatic%20algorithm%20after.png" width="350"/> |
+| <img src="https://github.com/user-attachments/assets/71b1f2f1-0180-4f25-a91e-ebcc1b24f673" width="350"/> | <img src="https://github.com/user-attachments/assets/44459f6d-46bb-4016-8f3e-fdca8bdbed45" width="350"/> |
 
 ---
 
@@ -138,7 +138,7 @@ Before SCC, static reflections from buildings dominate the Range-Doppler Map, co
 
 Real-time ray-tracing of a vehicle traversing the Fusionopolis road junction, capturing multipath reflections and dynamic occlusions at 59 GHz.
 
-<img src="results/vehicle%20moving.png" width="600"/>
+<img src="https://github.com/user-attachments/assets/9b7f20df-d070-477d-9bca-92cbcbff1f7c" width="600"/>
 
 ---
 
@@ -146,19 +146,19 @@ Real-time ray-tracing of a vehicle traversing the Fusionopolis road junction, ca
 
 The prediction algorithm closely tracks ground-truth vehicle positions across both short and extended update intervals, demonstrating robustness to prediction horizon.
 
-<img src="results/tracking.png" width="600"/>
+<img src="https://github.com/user-attachments/assets/b6e04f11-a5d7-42bc-8e2a-a47b108ed03d" width="600"/>
 
 ---
 
 ### Sensing-Aided Beamforming
 
-<img src="results/pic1.jpeg" width="600"/>
+<img src="https://github.com/user-attachments/assets/8c53b564-1d53-4132-9186-65ce20cafd70" width="600"/>
 
 Proactive beamforming using predicted DOA achieves BER performance on par with ideal true-DOA beamforming, at significantly lower computational overhead. Prediction horizons up to 2 seconds still yield accurate beam alignment — a critical property for real-world deployment where feedback latency is unavoidable.
 
-<img src="results/pic2.jpeg" width="500"/>
+<img src="https://github.com/user-attachments/assets/7484cf28-8d6c-493b-a934-9151ff6f4ae9" width="500"/>
 
-<img src="results/Comparison.png" width="500"/>
+<img src="https://github.com/user-attachments/assets/4c3b23ee-ebbf-4540-b659-0338e5583aaf" width="600"/>
 
 ---
 
@@ -168,29 +168,6 @@ Proactive beamforming using predicted DOA achieves BER performance on par with i
 - **Doppler geometry is a first-class concern:** measurements near the 90° line-of-sight angle are excluded to avoid velocity ambiguity — a subtle but load-bearing design decision.
 - **Long prediction horizons remain viable:** accuracy holds out to ~2 seconds, making the approach realistic for systems with non-trivial feedback latency.
 - **Bistatic remains tractable:** added geometric complexity is manageable within the proposed framework, extending applicability beyond co-located deployments.
-
----
-
-## Repository Structure
-
-```
-isac-digital-twin/
-│
-├── README.md
-└── results/
-    ├── system_model.png
-    ├── monostatic_config.png
-    ├── bistatic_config.png
-    ├── Monostatic Algorithm before.png
-    ├── Monostatic Algorithm after.png
-    ├── Bistatic algorithm before.png
-    ├── Bistatic algorithm after.png
-    ├── tracking.png
-    ├── vehicle moving.png
-    ├── Comparison.png
-    ├── pic1.jpeg
-    └── pic2.jpeg
-```
 
 ---
 
